@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.edu.iyatsouba.controller.impl.MainController">
+   <children>
+      <TabPane layoutX="0.0" layoutY="24.0" prefHeight="508.0" prefWidth="698.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+         <tabs>
+            <Tab text="Вихідний сигнал">
+               <content>
+                  <fx:include source="tab_source_signal.fxml" />
+               </content>
+            </Tab>
+            <Tab text="Сигнал без латентних періодів">
+               <content>
+                  <fx:include source="tab_no_latent_periods.fxml" />
+               </content>
+            </Tab>
+
+                        <Tab text="Нормалізований сигнал">
+   <content>
+                  <fx:include source="tab_normalized_signal.fxml" />
+   </content>
+            </Tab>
+
+                     </tabs>
+      </TabPane>
+      <MenuBar prefHeight="25.0" prefWidth="698.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Файл">
+            <items>
+              <MenuItem fx:id="fileOpen" mnemonicParsing="false" text="Відкрити" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
