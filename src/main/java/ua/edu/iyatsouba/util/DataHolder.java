@@ -23,14 +23,13 @@ public class DataHolder {
         if(data != null) {
             Sound sound = data;
 
-            double sqrtVarience = Math.sqrt(calcVariance(sound.getData()));
+            double sqrtVarience = Math.sqrt(calcVariance(sound.data));
             double coef = 1.0 / 3.0;
             boolean isFinish = false;
 
-            short[] noLatent = new short[sound.getData().length];
+            short[] noLatent = new short[sound.data.length];
 
-            System.arraycopy(sound.getData(), 0, noLatent, 0, sound.getData().length );
-
+            System.arraycopy(sound.data, 0, noLatent, 0, sound.data.length );
 
             for(int i = 0; i < noLatent.length; i++) {
                 if (!isFinish) {
@@ -53,28 +52,29 @@ public class DataHolder {
                     }
                 }
             }
-            sound.setDataWithoutLatentPeriods(noLatent);
+            sound.dataWithoutLatentPeriods = noLatent;
         }
     }
 
     public void makeNormalization() {
-
         if(data != null) {
             Sound sound = data;
-            double varience = calcVariance(sound.getDataWithoutLatentPeriods());
-            double[] normalizedData = new double[sound.getDataWithoutLatentPeriods().length];
-            for (int i=0; i < sound.getDataWithoutLatentPeriods().length; i++){
-                normalizedData[i] = sound.getDataWithoutLatentPeriods()[i] / Math.sqrt(varience);
+            double varience = calcVariance(sound.dataWithoutLatentPeriods);
+            double[] normalizedData = new double[sound.dataWithoutLatentPeriods.length];
+            for (int i=0; i < sound.dataWithoutLatentPeriods.length; i++){
+                normalizedData[i] = sound.dataWithoutLatentPeriods[i] / Math.sqrt(varience);
             }
-            sound.setNormalizationData(normalizedData);
+            sound.normalizationData = normalizedData;
+            sound.countOfLines = sound.normalizationData.length / 256;
         }
-    }
+   }
 
-    public double calcVariance(short[] arr) {
+    public  double calcVariance(short[] arr) {
         double varience = 0;
-        for (int i = 0; i < arr.length; i++) {
-            varience += Math.pow(arr[i], 2)/arr.length;
+        for (Short anArr : arr) {
+            varience += Math.pow(anArr, 2);
         }
+        varience /= arr.length;
         return varience;
     }
 

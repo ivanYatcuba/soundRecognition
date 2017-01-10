@@ -23,20 +23,20 @@ public class TabSourceSignalController extends AbstractChartController {
 
     @Override
     protected DataMapper getDataMapper() {
-        return (index, sound) -> new XYChart.Data<>(index, sound.getData()[index]);
+        return (index, sound) -> new XYChart.Data<>(index, sound.data[index]);
     }
 
     @Override
     protected Function<Sound, Integer> getLengthSupplier() {
-        return sound -> sound.getData().length;
+        return sound -> sound.data.length;
     }
 
     @Override
     protected Function<Sound, List> getData() {
         return sound1 -> {
             List<Short> shorts =  new LinkedList<>();
-            for(int i = 0; i< sound1.getData().length; i++) {
-                shorts.add(sound1.getData()[i]);
+            for(int i = 0; i< sound1.data.length; i++) {
+                shorts.add(sound1.data[i]);
             }
             return shorts;
         };

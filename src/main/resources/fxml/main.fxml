@@ -17,14 +17,18 @@
                   <fx:include source="tab_no_latent_periods.fxml" />
                </content>
             </Tab>
-
-                        <Tab text="Нормалізований сигнал">
-   <content>
+            <Tab text="Нормалізований сигнал">
+                <content>
                   <fx:include source="tab_normalized_signal.fxml" />
-   </content>
+                 </content>
             </Tab>
 
-                     </tabs>
+             <Tab text="Спектр сигналу">
+                 <content>
+                     <fx:include source="tab_signal_spectr.fxml" />
+                 </content>
+             </Tab>
+         </tabs>
       </TabPane>
       <MenuBar prefHeight="25.0" prefWidth="698.0">
         <menus>

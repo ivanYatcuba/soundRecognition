@@ -3,6 +3,7 @@ package ua.edu.iyatsouba.controller.impl;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.input.MouseButton;
@@ -23,7 +24,7 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
 
     final double SCALE_DELTA = 1.1;
 
-    protected abstract AreaChart<Number, Number> getChart();
+    protected abstract XYChart<Number, Number> getChart();
 
     @FunctionalInterface
     public interface DataMapper {
@@ -39,7 +40,7 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Panning works via either secondary (right) mouse or primary with ctrl held down
-        AreaChart<Number, Number> chart = getChart();
+        XYChart<Number, Number> chart = getChart();
         ChartPanManager panner = new ChartPanManager( chart );
         panner.setMouseFilter(mouseEvent -> {
             if ( mouseEvent.getButton() == MouseButton.SECONDARY ||
@@ -64,9 +65,6 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
 
     public void drawSourceChart(Sound sound) {
 
-
-
-
         getChart().getData().retainAll();
 
         XYChart.Series<Number,Number> data= new XYChart.Series<>();
@@ -79,7 +77,6 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
             dataList.add(dataMapper.apply(i, sound));
         }
         Platform.runLater(() -> data.getData().addAll(dataList));
-
 
         List allData = getData().apply(sound);
 
@@ -103,7 +100,14 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
         rect.setVisible(false);
         data.setNode(rect);
 
-        getChart().setCreateSymbols(false); //hide dots
+        if(getChart() instanceof AreaChart) {
+            ((AreaChart)getChart()).setCreateSymbols(false); //hide dots
+        }
+
+        if(getChart() instanceof LineChart) {
+            ((LineChart)getChart()).setCreateSymbols(false); //hide dots
+        }
+
         getChart().getData().add(data);
     }
 }

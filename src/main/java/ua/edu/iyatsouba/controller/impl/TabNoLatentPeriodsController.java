@@ -24,20 +24,20 @@ public class TabNoLatentPeriodsController extends AbstractChartController {
 
     @Override
     protected DataMapper getDataMapper() {
-        return (index, sound) ->  new XYChart.Data<>(index, sound.getDataWithoutLatentPeriods()[index]);
+        return (index, sound) ->  new XYChart.Data<>(index, sound.dataWithoutLatentPeriods[index]);
     }
 
     @Override
     protected Function<Sound, Integer> getLengthSupplier() {
-        return sound -> sound.getDataWithoutLatentPeriods().length;
+        return sound -> sound.dataWithoutLatentPeriods.length;
     }
 
     @Override
     protected Function<Sound, List> getData() {
         return sound1 -> {
             List<Short> shorts =  new LinkedList<>();
-            for(int i = 0; i< sound1.getDataWithoutLatentPeriods().length; i++) {
-                shorts.add(sound1.getDataWithoutLatentPeriods()[i]);
+            for(int i = 0; i< sound1.dataWithoutLatentPeriods.length; i++) {
+                shorts.add(sound1.dataWithoutLatentPeriods[i]);
             }
             return shorts;
         };

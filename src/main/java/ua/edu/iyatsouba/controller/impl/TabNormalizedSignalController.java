@@ -23,20 +23,20 @@ public class TabNormalizedSignalController extends AbstractChartController {
 
     @Override
     protected DataMapper getDataMapper() {
-        return (index, sound) ->  new XYChart.Data<>(index, sound.getNormalizationData()[index]);
+        return (index, sound) ->  new XYChart.Data<>(index, sound.normalizationData[index]);
     }
 
     @Override
     protected Function<Sound, Integer> getLengthSupplier() {
-        return sound -> sound.getNormalizationData().length;
+        return sound -> sound.normalizationData.length;
     }
 
     @Override
     protected Function<Sound, List> getData() {
         return sound1 -> {
             List<Double> shorts =  new LinkedList<>();
-            for(int i = 0; i< sound1.getNormalizationData().length; i++) {
-                shorts.add(sound1.getNormalizationData()[i]);
+            for(int i = 0; i< sound1.normalizationData.length; i++) {
+                shorts.add(sound1.normalizationData[i]);
             }
             return shorts;
         };
