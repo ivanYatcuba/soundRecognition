@@ -54,7 +54,9 @@ public class MainController extends AbstractFxmlController implements Initializa
                 FourierTransform fourierTransform = new FourierTransform(dataHolder.getData());
                 fourierTransform.initFourierArray();
 
-                LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(), tabSignalLinesController.getFCut());
+                LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(),
+                        tabSignalLinesController.getFCut(),
+                        tabSignalLinesController.getN());
                 lineRepresentation.initRepresentationFourier();
                 lineRepresentation.initRepresentationFourierSmoothing();
 

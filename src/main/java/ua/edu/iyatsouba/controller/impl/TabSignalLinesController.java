@@ -30,6 +30,8 @@ public class TabSignalLinesController extends AbstractChartController {
     private Slider spectrumLine;
     @FXML
     private TextField fCut;
+    @FXML
+    private TextField n;
 
     private int lineCount() {
         return (int) spectrumLine.getValue();
@@ -55,7 +57,24 @@ public class TabSignalLinesController extends AbstractChartController {
                 if(!Objects.equals(oldValue, newValue)) {
                     double f = Double.parseDouble(newValue);
                     if(f != 0 && f > 0) {
-                        LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(), f);
+                        LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(), f, getN());
+                        lineRepresentation.initRepresentationFourier();
+                        lineRepresentation.initRepresentationFourierSmoothing();
+                        drawSourceChart(dataHolder.getData());
+                    }
+
+                }
+            } catch (Exception e) {
+                //do nothing
+            }
+        });
+
+        n.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                if(!Objects.equals(oldValue, newValue)) {
+                    int N = Integer.parseInt(newValue);
+                    if(N != 0 && N > 0) {
+                        LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(), getFCut(), N);
                         lineRepresentation.initRepresentationFourier();
                         lineRepresentation.initRepresentationFourierSmoothing();
                         drawSourceChart(dataHolder.getData());
@@ -113,6 +132,14 @@ public class TabSignalLinesController extends AbstractChartController {
             return Double.parseDouble(fCut.getText());
         } catch (Exception e) {
             return 0.1;
+        }
+    }
+
+    public int getN() {
+        try {
+            return Integer.parseInt(n.getText());
+        } catch (Exception e) {
+            return 5;
         }
     }
 }

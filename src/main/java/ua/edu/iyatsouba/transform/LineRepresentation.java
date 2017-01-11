@@ -7,16 +7,16 @@ import java.util.List;
 
 public class LineRepresentation {
 
-    public static final int N = 7;
     public static final int LINE_COUNT = 9;
 
     private SoundData sound;
     private double f;
+    private int N;
     private List<Double> c;
 
-    public LineRepresentation(SoundData sound, double f) {
+    public LineRepresentation(SoundData sound, double f, int n) {
         this.sound = sound;
-
+        this.N = n;
         this.sound.lineRepresentationFourier = new double[LINE_COUNT][sound.countOfLines];
         this.sound.lineRepresentationFourierSmoothing = new double[LINE_COUNT][sound.countOfLines];
 
