@@ -22,10 +22,14 @@
                   <fx:include source="tab_normalized_signal.fxml" />
                  </content>
             </Tab>
-
              <Tab text="Спектр сигналу">
                  <content>
                      <fx:include source="tab_signal_spectr.fxml" />
+                 </content>
+             </Tab>
+             <Tab text="Полоси">
+                 <content>
+                     <fx:include source="tab_signal_lines.fxml" />
                  </content>
              </Tab>
          </tabs>

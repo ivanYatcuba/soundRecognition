@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import org.springframework.stereotype.Controller;
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,12 +27,12 @@ public class TabNormalizedSignalController extends AbstractChartController {
     }
 
     @Override
-    protected Function<Sound, Integer> getLengthSupplier() {
+    protected Function<SoundData, Integer> getLengthSupplier() {
         return sound -> sound.normalizationData.length;
     }
 
     @Override
-    protected Function<Sound, List> getData() {
+    protected Function<SoundData, List> getData() {
         return sound1 -> {
             List<Double> shorts =  new LinkedList<>();
             for(int i = 0; i< sound1.normalizationData.length; i++) {

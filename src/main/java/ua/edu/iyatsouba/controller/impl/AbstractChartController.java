@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 import org.gillius.jfxutils.chart.ChartPanManager;
 import org.gillius.jfxutils.chart.JFXChartUtil;
 import ua.edu.iyatsouba.controller.AbstractFxmlController;
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 
 import java.net.URL;
 import java.util.Collections;
@@ -28,14 +28,14 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
 
     @FunctionalInterface
     public interface DataMapper {
-        XYChart.Data<Number, Number> apply(int index, Sound sound);
+        XYChart.Data<Number, Number> apply(int index, SoundData soundData);
     }
 
     protected abstract DataMapper getDataMapper();
 
-    protected abstract Function<Sound, Integer> getLengthSupplier();
+    protected abstract Function<SoundData, Integer> getLengthSupplier();
 
-    protected abstract Function<Sound, List> getData();
+    protected abstract Function<SoundData, List> getData();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,7 +63,7 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
         JFXChartUtil.addDoublePrimaryClickAutoRangeHandler( chart );
     }
 
-    public void drawSourceChart(Sound sound) {
+    public void drawSourceChart(SoundData soundData) {
 
         getChart().getData().retainAll();
 
@@ -71,17 +71,17 @@ public abstract class AbstractChartController extends AbstractFxmlController imp
         List<XYChart.Data<Number,Number>> dataList = new LinkedList<>();
 
         DataMapper dataMapper = getDataMapper();
-        Function<Sound, Integer> lengthSupplier = getLengthSupplier();
+        Function<SoundData, Integer> lengthSupplier = getLengthSupplier();
 
-        for(int i=0; i < lengthSupplier.apply(sound); i++) {
-            dataList.add(dataMapper.apply(i, sound));
+        for(int i = 0; i < lengthSupplier.apply(soundData); i++) {
+            dataList.add(dataMapper.apply(i, soundData));
         }
         Platform.runLater(() -> data.getData().addAll(dataList));
 
-        List allData = getData().apply(sound);
+        List allData = getData().apply(soundData);
 
         ((NumberAxis)getChart().getXAxis()).setLowerBound(0);
-        ((NumberAxis)getChart().getXAxis()).setUpperBound(lengthSupplier.apply(sound));
+        ((NumberAxis)getChart().getXAxis()).setUpperBound(lengthSupplier.apply(soundData));
 
         Object min = Collections.min(allData);
         if(min instanceof Short) {

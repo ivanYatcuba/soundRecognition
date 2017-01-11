@@ -6,7 +6,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Slider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 import ua.edu.iyatsouba.util.DataHolder;
 
 import java.net.URL;
@@ -44,11 +44,6 @@ public class TabSpectrumSignalController extends AbstractChartController {
             spectrumLine.setValue(value);
 
             drawSourceChart(dataHolder.getData());
-           /* if (YolshSelected.isSelected()) {
-                DrawWalschTransform((int) trackBar1.getValue());
-            } else {
-                DrawFourierTransform((int) trackBar1.getValue());
-            }*/
         });
     }
 
@@ -63,12 +58,12 @@ public class TabSpectrumSignalController extends AbstractChartController {
     }
 
     @Override
-    protected Function<Sound, Integer> getLengthSupplier() {
+    protected Function<SoundData, Integer> getLengthSupplier() {
         return sound -> sound.laneRepresentationFourier[lineCount()].length;
     }
 
     @Override
-    protected Function<Sound, List> getData() {
+    protected Function<SoundData, List> getData() {
         return sound1 -> {
             List<Double> shorts =  new LinkedList<>();
             for(int i = 0; i< sound1.laneRepresentationFourier[lineCount()].length; i++) {

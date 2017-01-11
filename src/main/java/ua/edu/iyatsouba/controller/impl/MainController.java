@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import ua.edu.iyatsouba.controller.AbstractFxmlController;
 import ua.edu.iyatsouba.transform.FourierTransform;
+import ua.edu.iyatsouba.transform.LineRepresentation;
 import ua.edu.iyatsouba.util.DataHolder;
 import ua.edu.iyatsouba.util.FileReader;
 
@@ -31,6 +32,8 @@ public class MainController extends AbstractFxmlController implements Initializa
     TabNormalizedSignalController tabNormalizedSignalController;
     @Autowired
     TabSpectrumSignalController tabSpectrumSignalController;
+    @Autowired
+    TabSignalLinesController tabSignalLinesController;
 
     @FXML
     private MenuItem fileOpen;
@@ -51,12 +54,17 @@ public class MainController extends AbstractFxmlController implements Initializa
                 FourierTransform fourierTransform = new FourierTransform(dataHolder.getData());
                 fourierTransform.initFourierArray();
 
+                LineRepresentation lineRepresentation = new LineRepresentation(dataHolder.getData(), tabSignalLinesController.getFCut());
+                lineRepresentation.initRepresentationFourier();
+                lineRepresentation.initRepresentationFourierSmoothing();
+
                 tabSpectrumSignalController.initLinesCount(dataHolder.getData().countOfLines - 1);
 
                 tabSourceSignalController.drawSourceChart(dataHolder.getData());
                 tabNoLatentPeriodsController.drawSourceChart(dataHolder.getData());
                 tabNormalizedSignalController.drawSourceChart(dataHolder.getData());
                 tabSpectrumSignalController.drawSourceChart(dataHolder.getData());
+                tabSignalLinesController.drawSourceChart(dataHolder.getData());
             }
         });
     }

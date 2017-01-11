@@ -1,7 +1,7 @@
 package ua.edu.iyatsouba.util;
 
 import org.springframework.stereotype.Component;
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +14,7 @@ public class FileReader {
 
     public static  int HEADER_LENGTH = 44;
 
-    public Sound read(File file) {
+    public SoundData read(File file) {
         byte[]  byteInput = new byte[(int)file.length() - HEADER_LENGTH];
         short[] input = new short[(int)(byteInput.length / 2f)];
 
@@ -25,7 +25,7 @@ public class FileReader {
 
             short[] inputC = Arrays.copyOfRange(input, HEADER_LENGTH, input.length);
 
-            return new Sound(inputC);
+            return new SoundData(inputC);
         }catch(Exception e  ){
             e.printStackTrace();
             return null;

@@ -1,22 +1,22 @@
 package ua.edu.iyatsouba.transform;
 
 
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 
 public class FourierTransform {
 
-    private Sound sound;
+    private SoundData soundData;
 
-    public FourierTransform(Sound sound) {
-        this.sound = sound;
-        this.sound.laneRepresentationFourier = new double[sound.countOfLines] [ 256 / 2];
+    public FourierTransform(SoundData soundData) {
+        this.soundData = soundData;
+        this.soundData.laneRepresentationFourier = new double[soundData.countOfLines] [ 256 / 2];
     }
 
     private double calculateA(int k, int l) {
         double a = 0;
         int N = 256;
         for (int i = l * N; i < l * N + N + 1; i++) {
-            a += sound.normalizationData[i] * Math.cos(2 * Math.PI * k * i / N);
+            a += soundData.normalizationData[i] * Math.cos(2 * Math.PI * k * i / N);
         }
         return a * (2.0 / (N));
     }
@@ -25,7 +25,7 @@ public class FourierTransform {
         double b = 0;
         int N = 256;
         for (int i = l * N; i < l * N + N + 1; i++) {
-            b += sound.normalizationData[i] * Math.sin(2 * Math.PI * k * i / N);
+            b += soundData.normalizationData[i] * Math.sin(2 * Math.PI * k * i / N);
         }
         return b * (2.0 / (N));
     }
@@ -37,9 +37,9 @@ public class FourierTransform {
     }
 
     public void initFourierArray() {
-        for (int i = 0; i < sound.countOfLines; i++) {
+        for (int i = 0; i < soundData.countOfLines; i++) {
             for (int j = 0; j < 256 / 2; j++) {
-                sound.laneRepresentationFourier[i][j] = Math.sqrt(calculateC(j, i));
+                soundData.laneRepresentationFourier[i][j] = Math.sqrt(calculateC(j, i));
             }
         }
 

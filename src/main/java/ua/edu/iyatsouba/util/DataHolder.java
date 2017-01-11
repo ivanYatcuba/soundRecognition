@@ -2,34 +2,34 @@ package ua.edu.iyatsouba.util;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.stereotype.Component;
-import ua.edu.iyatsouba.data.Sound;
+import ua.edu.iyatsouba.data.SoundData;
 
 @Component
 public class DataHolder {
 
-    private Sound data;
+    private SoundData data;
 
 
-    public Sound getData() {
+    public SoundData getData() {
         return data;
     }
 
-    public void setData(Sound data) {
+    public void setData(SoundData data) {
         this.data = data;
     }
 
     public void removeLatentPeriods() {
 
         if(data != null) {
-            Sound sound = data;
+            SoundData soundData = data;
 
-            double sqrtVarience = Math.sqrt(calcVariance(sound.data));
+            double sqrtVarience = Math.sqrt(calcVariance(soundData.data));
             double coef = 1.0 / 3.0;
             boolean isFinish = false;
 
-            short[] noLatent = new short[sound.data.length];
+            short[] noLatent = new short[soundData.data.length];
 
-            System.arraycopy(sound.data, 0, noLatent, 0, sound.data.length );
+            System.arraycopy(soundData.data, 0, noLatent, 0, soundData.data.length );
 
             for(int i = 0; i < noLatent.length; i++) {
                 if (!isFinish) {
@@ -52,20 +52,20 @@ public class DataHolder {
                     }
                 }
             }
-            sound.dataWithoutLatentPeriods = noLatent;
+            soundData.dataWithoutLatentPeriods = noLatent;
         }
     }
 
     public void makeNormalization() {
         if(data != null) {
-            Sound sound = data;
-            double varience = calcVariance(sound.dataWithoutLatentPeriods);
-            double[] normalizedData = new double[sound.dataWithoutLatentPeriods.length];
-            for (int i=0; i < sound.dataWithoutLatentPeriods.length; i++){
-                normalizedData[i] = sound.dataWithoutLatentPeriods[i] / Math.sqrt(varience);
+            SoundData soundData = data;
+            double varience = calcVariance(soundData.dataWithoutLatentPeriods);
+            double[] normalizedData = new double[soundData.dataWithoutLatentPeriods.length];
+            for (int i = 0; i < soundData.dataWithoutLatentPeriods.length; i++){
+                normalizedData[i] = soundData.dataWithoutLatentPeriods[i] / Math.sqrt(varience);
             }
-            sound.normalizationData = normalizedData;
-            sound.countOfLines = sound.normalizationData.length / 256;
+            soundData.normalizationData = normalizedData;
+            soundData.countOfLines = soundData.normalizationData.length / 256;
         }
    }
 

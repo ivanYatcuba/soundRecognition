@@ -1,6 +1,6 @@
 package ua.edu.iyatsouba.data;
 
-public class Sound {
+public class SoundData {
 
     public int countOfLines;
 
@@ -10,15 +10,12 @@ public class Sound {
     public double[] normalizationData;
 
     public double[][] laneRepresentationFourier;
-    public double[][] laneRepresentationWalsch;
 
     public double[][] lineRepresentationFourier;
-    public double[][] lineRepresentationWalsch;
 
     public double[][] lineRepresentationFourierSmoothing;
-    public double[][] lineRepresentationWalschSmoothing;
 
-    public Sound(short[] data) {
+    public SoundData(short[] data) {
         this.data = data;
     }
 }
